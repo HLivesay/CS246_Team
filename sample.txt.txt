@@ -1,2 +1,2 @@
 This is sample text document to fufill the requirements for the week 04 teach activity.
-More sample text
+More sample text, an additional line.

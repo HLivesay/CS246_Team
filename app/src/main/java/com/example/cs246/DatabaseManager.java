@@ -5,6 +5,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -12,18 +14,30 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
 public class DatabaseManager {
     private static DatabaseReference mDatabase;
     private static FirebaseAuth mAuth;
+
+    private static FirebaseFirestore db;
     public static void init() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
+
+        db = FirebaseFirestore.getInstance();
     }
 
     //Will return null if the user isn't logged in
@@ -73,7 +87,7 @@ public class DatabaseManager {
         return true;
     }
 
-    public static boolean addUser(String email, String password, String firstname, String lastname, List<String> allergies) throws Exception {
+    public static boolean addUser(String email, String password, final String firstname, final String lastname, final List<String> allergies) throws Exception {
         if(email=="" || email==null)
             throw new Exception("Username is null or empty");
 
@@ -97,8 +111,13 @@ public class DatabaseManager {
                                 public void onComplete(@NonNull Task<GetTokenResult> task) {
                                     if(task.isSuccessful()){
                                         u.ID = task.getResult().getToken();
-                                        String id = mDatabase.child("users").push().getKey();
-                                        mDatabase.child("users").setValue(u);
+
+                                        Map<String, Object> userData = new HashMap<String, Object>();
+                                        userData.put("firstname", firstname);
+                                        userData.put("lastname", lastname);
+                                        userData.put("allergies", allergies);
+                                        userData.put("uid", u.ID);
+                                        addData(userData, "users");
                                         PreferencesManager.storeString("uid", u.ID);
                                     }
                                     else {
@@ -123,7 +142,19 @@ public class DatabaseManager {
         if(password=="" || password==null)
             throw new Exception("Password is null or empty");
 
-        //TODO verify user
+        mAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithEmail:success");
+                    FirebaseUser user = mAuth.getCurrentUser();
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithEmail:failure", task.getException());
+                }
+            }
+        });
 
         return true;
     }
@@ -133,7 +164,13 @@ public class DatabaseManager {
             throw new Exception ("ID is null or empty");
         }
 
-        //TODO get data from database
+        db.collection("restaurants").document(ID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                //List of items
+                task.getResult().get("items");
+            }
+        });
 
         return new ArrayList<Item>();
     }
@@ -142,12 +179,42 @@ public class DatabaseManager {
         if(restaurantID=="" || restaurantID==null)
             throw new Exception("ID is null or empty");
 
-        //TODO add item to database
+        db.collection("restaurants").document(restaurantID).update("items", FieldValue.arrayUnion(item));
     }
 
-    public static void AddData(Object data, String path) {
-        String ID = mDatabase.child(path).push().getKey();
-        mDatabase.child(path).child(ID).setValue(data);
+    public static void addData(Object data, String collectionName) {
+        // Add a new document with a generated ID
+        db.collection(collectionName)
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
+    }
+
+    private static void readData(String collectionName, Map<String, Object> data) {
+        db.collection(collectionName)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
     }
 
 }

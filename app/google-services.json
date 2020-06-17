@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "429634666476",
+    "firebase_url": "https://allergen-8c8c3.firebaseio.com",
+    "project_id": "allergen-8c8c3",
+    "storage_bucket": "allergen-8c8c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:429634666476:android:5628814dd537eb0aa28ac9",
+        "android_client_info": {
+          "package_name": "com.example.cs246"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "429634666476-a1fovjfuc4e166fkn5137kbi0do13msl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbhDCpUFsh_SbpuzKf6yk1xys4wtpzHtk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "429634666476-a1fovjfuc4e166fkn5137kbi0do13msl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -18,9 +18,10 @@ public class ExampleUnitTest {
 
         //Test add user exception handling
         ArrayList<String> allergies = new ArrayList<String>();
+        ArrayList<String> items = new ArrayList<String>();
         allergies.add("Hello");
         try {
-            assertEquals(false, DatabaseManager.addUser("", "", allergies));
+            assertEquals(false, DatabaseManager.addUser("","","","",allergies));
         } catch (Exception e) {
             System.out.println("Test passed");
         }
@@ -34,7 +35,7 @@ public class ExampleUnitTest {
 
         //Test adding and verifying user
         try {
-            DatabaseManager.addUser("Username" ,"Password", allergies);
+            DatabaseManager.addUser("","","","",allergies);
             assertEquals(true, DatabaseManager.verifyUser("Username", "Password"));
         } catch (Exception e) {
             System.out.print("Test failed\n    -");

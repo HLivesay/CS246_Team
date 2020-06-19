@@ -14,6 +14,15 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_signupActivity"
+            app:destination="@id/signupActivity" />
+        <action
+            android:id="@+id/action_FirstFragment_to_loginActivity"
+            app:destination="@id/loginActivity" />
+        <action
+            android:id="@+id/action_FirstFragment_to_restaurantFragment"
+            app:destination="@id/restaurantFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -25,4 +34,36 @@
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.cs246.ui.login.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
+    <activity
+        android:id="@+id/signupActivity"
+        android:name="com.example.cs246.signupActivity"
+        android:label="activity_signup"
+        tools:layout="@layout/activity_signup" />
+    <fragment
+        android:id="@+id/restaurantFragment"
+        android:name="com.example.cs246.ui.restaurant.RestaurantFragment"
+        android:label="restaurant_fragment"
+        tools:layout="@layout/restaurant_fragment" >
+        <action
+            android:id="@+id/action_restaurantFragment_to_restaurantAddItems"
+            app:destination="@id/restaurantAddItems" />
+        <action
+            android:id="@+id/action_restaurantFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantAddItems"
+        android:name="com.example.cs246.ui.restaurant.RestaurantAddItems"
+        android:label="restaurant_add_items_fragment"
+        tools:layout="@layout/restaurant_add_items_fragment" >
+        <action
+            android:id="@+id/action_restaurantAddItems_to_restaurantFragment"
+            app:destination="@id/restaurantFragment" />
+    </fragment>
+
 </navigation>

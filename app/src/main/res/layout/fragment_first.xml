@@ -20,34 +20,55 @@
         android:id="@+id/button_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/signup"
+        android:onClick="signupActivity"
+        android:text="@string/adddata"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintHorizontal_bias="0.885"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_first" />
+        app:layout_constraintTop_toBottomOf="@id/textview_first"
+        tools:ignore="OnClick" />
 
     <Button
         android:id="@+id/button_first2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="loginActivity"
         android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_first"
-        app:layout_constraintVertical_bias="0.501" />
+        app:layout_constraintVertical_bias="0.501"
+        tools:ignore="OnClick" />
+
+    <Button
+        android:id="@+id/button_first4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="restaurantActivity"
+        android:text="@string/restaurant"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_first2"
+        app:layout_constraintVertical_bias="0.781"
+        tools:ignore="OnClick" />
 
     <Button
         android:id="@+id/button_first3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/adddata"
+        android:onClick="signupActivity"
+        android:text="@string/signup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.829"
+        app:layout_constraintEnd_toStartOf="@+id/button_first2"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_first"
-        app:layout_constraintVertical_bias="0.501" />
+        app:layout_constraintVertical_bias="0.501"
+        tools:ignore="OnClick" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,8 +29,8 @@ import java.util.Map;
 import static android.content.ContentValues.TAG;
 
 public class DatabaseManager {
-    private static DatabaseReference mDatabase;
-    private static FirebaseAuth mAuth;
+    public static DatabaseReference mDatabase;
+    public static FirebaseAuth mAuth;
 
     private static FirebaseFirestore db;
     public static void init() {
@@ -43,6 +43,7 @@ public class DatabaseManager {
     //Will return null if the user isn't logged in
     public static FirebaseUser getCurrentUser() {
         FirebaseUser user = mAuth.getCurrentUser();
+
         return user;
     }
 
@@ -200,7 +201,7 @@ public class DatabaseManager {
                 });
     }
 
-    private static void readData(String collectionName, Map<String, Object> data) {
+    public static void readData(String collectionName) {
         db.collection(collectionName)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

@@ -1,5 +1,6 @@
 package com.example.cs246.data;
 
+import com.example.cs246.DatabaseManager;
 import com.example.cs246.data.model.LoggedInUser;
 
 /**
@@ -34,7 +35,7 @@ public class LoginRepository {
 
     public void logout() {
         user = null;
-        dataSource.logout();
+        DatabaseManager.mAuth.signOut();
     }
 
     private void setLoggedInUser(LoggedInUser user) {

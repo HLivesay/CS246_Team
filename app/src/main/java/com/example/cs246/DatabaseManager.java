@@ -32,7 +32,7 @@ public class DatabaseManager {
     public static DatabaseReference mDatabase;
     public static FirebaseAuth mAuth;
 
-    private static FirebaseFirestore db;
+    public static FirebaseFirestore db;
     public static void init() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();

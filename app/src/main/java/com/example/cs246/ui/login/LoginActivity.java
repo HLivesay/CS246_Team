@@ -2,7 +2,6 @@ package com.example.cs246.ui.login;
 
 import android.app.Activity;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -25,21 +24,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cs246.DatabaseManager;
-import com.example.cs246.MainActivity;
 import com.example.cs246.R;
-import com.example.cs246.data.Result;
-import com.example.cs246.data.model.LoggedInUser;
+import com.example.cs246.RestaurantDisplay;
 import com.example.cs246.signupActivity;
-import com.example.cs246.ui.login.LoginViewModel;
-import com.example.cs246.ui.login.LoginViewModelFactory;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-
-import java.io.IOException;
-
-import static android.content.ContentValues.TAG;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -149,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, RestaurantDisplay.class);
         Log.i("Activity", "Moving to main activity" );
         startActivity(intent);
     }

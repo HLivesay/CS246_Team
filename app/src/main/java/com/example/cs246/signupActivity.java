@@ -41,7 +41,7 @@ public class signupActivity extends AppCompatActivity {
         final EditText firstNameEditText = findViewById(R.id.signup_first_name);
         final EditText lastNameEditText = findViewById(R.id.signup_last_name);
 
-        final Intent intent = new Intent(this, MainActivity.class);
+        final Intent intent = new Intent(this, RestaurantDisplay.class);
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

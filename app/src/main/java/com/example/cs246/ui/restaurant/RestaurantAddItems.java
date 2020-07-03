@@ -2,13 +2,23 @@ package com.example.cs246.ui.restaurant;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.cs246.DatabaseManager;
 import com.example.cs246.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+
+import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -28,6 +38,10 @@ public class RestaurantAddItems extends Fragment {
 
     public RestaurantAddItems() {
         // Required empty public constructor
+    }
+
+    public void AddItem(String restID, Map<String, Object> data) {
+        DatabaseManager.db.collection("restaurants").document(restID).update(data);
     }
 
     /**
